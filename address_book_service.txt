@@ -17,3 +17,46 @@ mysql> show databases;
 | world                |
 +----------------------+
 8 rows in set (0.00 sec)
+
+..........................................................................................
+
+// UC2 - Creating a Address Book Table with first and last names, address, city, state, zip, phone number and email as its attributes.
+// Changing to address book service
+mysql> use address_book_service;
+Database changed
+mysql> select database();
++----------------------+
+| database()           |
++----------------------+
+| address_book_service |
++----------------------+
+1 row in set (0.00 sec)
+
+// Creating address book table
+mysql> create table address_book(
+    -> FirstName varchar(100) not null,
+    -> LirstName varchar(100) not null,
+    -> Address varchar(150) not null,
+    -> City varchar(50) not null,
+    -> State varchar(50) not null,
+    -> Zip varchar(6) not null,
+    -> PhoneNumber varchar(10) not null,
+    -> Email varchar(80) not null
+    -> );
+Query OK, 0 rows affected (2.23 sec)
+
+// Describing the structure of table
+mysql> desc address_book;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| FirstName   | varchar(100) | NO   |     | NULL    |       |
+| LirstName   | varchar(100) | NO   |     | NULL    |       |
+| Address     | varchar(150) | NO   |     | NULL    |       |
+| City        | varchar(50)  | NO   |     | NULL    |       |
+| State       | varchar(50)  | NO   |     | NULL    |       |
+| Zip         | varchar(6)   | NO   |     | NULL    |       |
+| PhoneNumber | varchar(10)  | NO   |     | NULL    |       |
+| Email       | varchar(80)  | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+8 rows in set (0.16 sec)
