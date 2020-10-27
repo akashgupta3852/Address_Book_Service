@@ -152,3 +152,34 @@ mysql> select * from address_book
 | Abhishek  | Gupta    | Station Road | Ballia  | U.P.  | 221701 | 9876543210  | abhishek@gmail.com    |
 +-----------+----------+--------------+---------+-------+--------+-------------+-----------------------+
 2 rows in set (0.00 sec)
+
+..........................................................................................
+
+// UC7 -  Finding the size of address book by City and State.
+// Finding the counts of Contacts of a particular City 
+mysql> select City,count(*) as 'Size of Address Book' from address_book
+    -> group by city;
++-----------+----------------------+
+| City      | Size of Address Book |
++-----------+----------------------+
+| Rasra     |                    1 |
+| Gwalior   |                    1 |
+| Ballia    |                    1 |
+| Bengaluru |                    1 |
+| Patna     |                    1 |
+| Varanasi  |                    2 |
++-----------+----------------------+
+6 rows in set (0.00 sec)
+
+// Finding the counts of Contacts of a particular State
+mysql> select State,count(*) as 'Size of Address Book' from address_book
+    -> group by state;
++-----------+----------------------+
+| State     | Size of Address Book |
++-----------+----------------------+
+| U.P.      |                    4 |
+| M.P.      |                    1 |
+| Karnataka |                    1 |
+| Bihar     |                    1 |
++-----------+----------------------+
+4 rows in set (0.00 sec)
