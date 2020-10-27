@@ -91,3 +91,30 @@ mysql> select * from address_book;
 | Akansha   | Singh    | Chowk         | Varanasi  | U.P.      | 221009 | 9998899559  | akansha@gmail.com      |
 +-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
 8 rows in set (0.00 sec)
+
+..........................................................................................
+
+// UC4 - Editing existing contact person using their name.
+mysql> update address_book set
+    -> city = 'Ballia',
+    -> zip = '221701'
+    -> where firstname='Abhishek' and lastname='Gupta';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+// Retrieving all the entries from table
+mysql> select * from address_book;
++-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+| FirstName | LastName | Address       | City      | State     | Zip    | PhoneNumber | Email                  |
++-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+| Akash     | Gupta    | Gudari Bazar  | Rasra     | U.P.      | 221712 | 9559473852  | akash@gmail.com        |
+| Kritee    | Sagar    | City Mall     | Gwalior   | M.P.      | 254658 | 9999999449  | kriteesagar@gmail.com  |
+| Khusbu    | Kumari   | Lanka         | Varanasi  | U.P.      | 221005 | 9999999999  | khusbu@gmail.com       |
+| Abhishek  | Gupta    | Station Road  | Ballia    | U.P.      | 221701 | 9876543210  | abhishek@gmail.com     |
+| Diksha    | Gupta    | IIM Bangalore | Bengaluru | Karnataka | 798998 | 7894561230  | dikshagupta@iimb.ac.in |
+| Roshan    | Singh    | VIP Road      | Patna     | Bihar     | 128598 | 9875681470  | roshan187@yahoo.com    |
+| Radhika   | Singh    | Manduadih     | Varanasi  | U.P.      | 221004 | 9998899999  | radhika@gmail.com      |
+| Akansha   | Singh    | Chowk         | Varanasi  | U.P.      | 221009 | 9998899559  | akansha@gmail.com      |
++-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+8 rows in set (0.05 sec)
+
