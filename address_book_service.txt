@@ -197,3 +197,77 @@ mysql> select * from address_book
 | Radhika   | Singh    | Manduadih | Varanasi | U.P.  | 221004 | 9998899999  | radhika@gmail.com |
 +-----------+----------+-----------+----------+-------+--------+-------------+-------------------+
 2 rows in set (0.02 sec)
+
+..........................................................................................
+ 
+// UC 9 - Identifying each Address Book with name and Type. 
+// Adding AddressBookName column to the table at first position
+mysql> alter table address_book add
+    -> AddressBookName varchar(100) first;
+Query OK, 0 rows affected (4.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+ 
+// Adding Type column to the table at second position
+mysql> alter table address_book add
+    -> Type varchar(100) after addressbookname;
+Query OK, 0 rows affected (2.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+// Retrieving all the entries from table
+mysql> select * from address_book;
++-----------------+------+-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+| AddressBookName | Type | FirstName | LastName | Address       | City      | State     | Zip    | PhoneNumber | Email                  |
++-----------------+------+-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+| NULL            | NULL | Akash     | Gupta    | Gudari Bazar  | Rasra     | U.P.      | 221712 | 9559473852  | akash@gmail.com        |
+| NULL            | NULL | Kritee    | Sagar    | City Mall     | Gwalior   | M.P.      | 254658 | 9999999449  | kriteesagar@gmail.com  |
+| NULL            | NULL | Abhishek  | Gupta    | Station Road  | Ballia    | U.P.      | 221701 | 9876543210  | abhishek@gmail.com     |
+| NULL            | NULL | Diksha    | Gupta    | IIM Bangalore | Bengaluru | Karnataka | 798998 | 7894561230  | dikshagupta@iimb.ac.in |
+| NULL            | NULL | Roshan    | Singh    | VIP Road      | Patna     | Bihar     | 128598 | 9875681470  | roshan187@yahoo.com    |
+| NULL            | NULL | Radhika   | Singh    | Manduadih     | Varanasi  | U.P.      | 221004 | 9998899999  | radhika@gmail.com      |
+| NULL            | NULL | Akansha   | Singh    | Chowk         | Varanasi  | U.P.      | 221009 | 9998899559  | akansha@gmail.com      |
++-----------------+------+-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+7 rows in set (0.03 sec)
+
+// Updating the values in AddressBookName column
+mysql> update address_book set
+    -> addressbookname = 'Purvanchal'
+    -> where state = 'U.P.' or state = 'Bihar';
+Query OK, 5 rows affected (0.13 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+mysql> update address_book set
+    -> addressbookname = 'Center'
+    -> where state = 'M.P.';
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> update address_book set
+    -> addressbookname = 'South'
+    -> where state = 'Karnataka';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+// Updating the values in Type column
+mysql> update address_book set
+    -> type = 'Family'
+    -> where lastname = 'Gupta';
+Query OK, 3 rows affected (0.15 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+mysql> update address_book set
+    -> type = 'Friends'
+    -> where not  lastname = 'Gupta';
+Query OK, 4 rows affected (0.09 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+// Retrieving all the entries from table
+mysql> select * from address_book;
++-----------------+---------+-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+| AddressBookName | Type    | FirstName | LastName | Address       | City      | State     | Zip    | PhoneNumber | Email                  |
++-----------------+---------+-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+| Purvanchal      | Family  | Akash     | Gupta    | Gudari Bazar  | Rasra     | U.P.      | 221712 | 9559473852  | akash@gmail.com        |
+| Center          | Friends | Kritee    | Sagar    | City Mall     | Gwalior   | M.P.      | 254658 | 9999999449  | kriteesagar@gmail.com  |
+| Purvanchal      | Family  | Abhishek  | Gupta    | Station Road  | Ballia    | U.P.      | 221701 | 9876543210  | abhishek@gmail.com     |
+| South           | Family  | Diksha    | Gupta    | IIM Bangalore | Bengaluru | Karnataka | 798998 | 7894561230  | dikshagupta@iimb.ac.in |
+| Purvanchal      | Friends | Roshan    | Singh    | VIP Road      | Patna     | Bihar     | 128598 | 9875681470  | roshan187@yahoo.com    |
+| Purvanchal      | Friends | Radhika   | Singh    | Manduadih     | Varanasi  | U.P.      | 221004 | 9998899999  | radhika@gmail.com      |
+| Purvanchal      | Friends | Akansha   | Singh    | Chowk         | Varanasi  | U.P.      | 221009 | 9998899559  | akansha@gmail.com      |
++-----------------+---------+-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+7 rows in set (0.05 sec)
