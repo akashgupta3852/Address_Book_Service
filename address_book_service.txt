@@ -140,3 +140,15 @@ mysql> select * from address_book;
 +-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
 7 rows in set (0.00 sec)
 
+..........................................................................................
+
+// UC6 - Retrieving Person belonging to a City or State from the Address Book.
+mysql> select * from address_book
+    -> where city = 'Ballia' or State='M.P.';
++-----------+----------+--------------+---------+-------+--------+-------------+-----------------------+
+| FirstName | LastName | Address      | City    | State | Zip    | PhoneNumber | Email                 |
++-----------+----------+--------------+---------+-------+--------+-------------+-----------------------+
+| Kritee    | Sagar    | City Mall    | Gwalior | M.P.  | 254658 | 9999999449  | kriteesagar@gmail.com |
+| Abhishek  | Gupta    | Station Road | Ballia  | U.P.  | 221701 | 9876543210  | abhishek@gmail.com    |
++-----------+----------+--------------+---------+-------+--------+-------------+-----------------------+
+2 rows in set (0.00 sec)
