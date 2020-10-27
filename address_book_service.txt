@@ -1,1 +1,19 @@
-Welcome to Address Book Service
+// UC1 - Creating a Address Book Service DB.
+mysql> create database address_book_service;
+Query OK, 1 row affected (0.20 sec)
+
+// Displaying all the databases
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| address_book_service |
+| information_schema   |
+| mysql                |
+| payroll_service      |
+| performance_schema   |
+| sakila               |
+| sys                  |
+| world                |
++----------------------+
+8 rows in set (0.00 sec)
