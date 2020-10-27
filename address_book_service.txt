@@ -60,3 +60,34 @@ mysql> desc address_book;
 | Email       | varchar(80)  | NO   |     | NULL    |       |
 +-------------+--------------+------+-----+---------+-------+
 8 rows in set (0.16 sec)
+
+..........................................................................................
+
+// UC3 - Inserting new Contacts to Address Book.
+mysql> insert into address_book values
+    -> ('Akash', 'Gupta', 'Gudari Bazar', 'Rasra', 'U.P.', '221712', '9559473852', 'akash@gmail.com'),
+    -> ("Kritee", "Sagar", "City Mall", "Gwalior", "M.P.", "254658", "9999999449", "kriteesagar@gmail.com"),
+    -> ("Khusbu", "Kumari", "Lanka", "Varanasi", "U.P.", '221005', '9999999999', "khusbu@gmail.com"),
+    -> ("Abhishek", "Gupta", "Station Road", "Rasra", "U.P.", '221712', '9876543210', "abhishek@gmail.com"),
+    -> ("Diksha", "Gupta", "IIM Bangalore", "Bengaluru", "Karnataka", "798998", "7894561230", "dikshagupta@iimb.ac.in"),
+    -> ("Roshan", "Singh", "VIP Road", "Patna", "Bihar", "128598", "9875681470", "roshan187@yahoo.com"),
+    -> ("Radhika", "Singh", "Manduadih", "Varanasi", "U.P.", '221004', '9998899999', "radhika@gmail.com"),
+    -> ("Akansha", "Singh", "Chowk", "Varanasi", "U.P.", '221009', '9998899559', "akansha@gmail.com");
+Query OK, 8 rows affected (0.10 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+// Retrieving all the entries from table
+mysql> select * from address_book;
++-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+| FirstName | LastName | Address       | City      | State     | Zip    | PhoneNumber | Email                  |
++-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+| Akash     | Gupta    | Gudari Bazar  | Rasra     | U.P.      | 221712 | 9559473852  | akash@gmail.com        |
+| Kritee    | Sagar    | City Mall     | Gwalior   | M.P.      | 254658 | 9999999449  | kriteesagar@gmail.com  |
+| Khusbu    | Kumari   | Lanka         | Varanasi  | U.P.      | 221005 | 9999999999  | khusbu@gmail.com       |
+| Abhishek  | Gupta    | Station Road  | Rasra     | U.P.      | 221712 | 9876543210  | abhishek@gmail.com     |
+| Diksha    | Gupta    | IIM Bangalore | Bengaluru | Karnataka | 798998 | 7894561230  | dikshagupta@iimb.ac.in |
+| Roshan    | Singh    | VIP Road      | Patna     | Bihar     | 128598 | 9875681470  | roshan187@yahoo.com    |
+| Radhika   | Singh    | Manduadih     | Varanasi  | U.P.      | 221004 | 9998899999  | radhika@gmail.com      |
+| Akansha   | Singh    | Chowk         | Varanasi  | U.P.      | 221009 | 9998899559  | akansha@gmail.com      |
++-----------+----------+---------------+-----------+-----------+--------+-------------+------------------------+
+8 rows in set (0.00 sec)
