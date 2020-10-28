@@ -286,3 +286,34 @@ mysql> select Type, count(*) as 'Number of Contact Persons'
 +---------+---------------------------+
 2 rows in set (0.00 sec)
 
+..........................................................................................
+ 
+// UC 11 - Adding person to both Friend and Family.
+
+// Inserting data into the address_book table
+mysql> insert into address_book values
+    -> ('East','Friend', 'Radhe','Mohan','Brahmasthan','Chilkahar','Assam','221546','9876543211','abc@xyz.com'),
+    -> ('East','Family', 'Shweta','Gupta','Bada Chowk','Imphal','Manipur','471546','8876543445','abc@xyz.in'),
+    -> ('West','Family', 'Piyush','Agarawal','IIT Chauraha','Gandhinagar','Gujarat','551546','9974125832','xyz@yahoo.in'),
+    -> ('Center','Friend', 'Mohit','Dadhich','Airoli','Mumbai','Maharashtra','465545','9956256632','mohan@yiitbhu.ac.in');
+Query OK, 4 rows affected (0.24 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+// Retrieving all the entires from the address_book table
+mysql> select * from address_book;
++-----------------+--------+-----------+----------+---------------+-------------+-------------+--------+-------------+------------------------+
+| AddressBookName | Type   | FirstName | LastName | Address       | City        | State       | Zip    | PhoneNumber | Email                  |
++-----------------+--------+-----------+----------+---------------+-------------+-------------+--------+-------------+------------------------+
+| Purvanchal      | Family | Akash     | Gupta    | Gudari Bazar  | Rasra       | U.P.        | 221712 | 9559473852  | akash@gmail.com        |
+| Center          | Friend | Kritee    | Sagar    | City Mall     | Gwalior     | M.P.        | 254658 | 9999999449  | kriteesagar@gmail.com  |
+| Purvanchal      | Family | Abhishek  | Gupta    | Station Road  | Ballia      | U.P.        | 221701 | 9876543210  | abhishek@gmail.com     |
+| South           | Family | Diksha    | Gupta    | IIM Bangalore | Bengaluru   | Karnataka   | 798998 | 7894561230  | dikshagupta@iimb.ac.in |
+| Purvanchal      | Friend | Roshan    | Singh    | VIP Road      | Patna       | Bihar       | 128598 | 9875681470  | roshan187@yahoo.com    |
+| Purvanchal      | Friend | Radhika   | Singh    | Manduadih     | Varanasi    | U.P.        | 221004 | 9998899999  | radhika@gmail.com      |
+| Purvanchal      | Friend | Akansha   | Singh    | Chowk         | Varanasi    | U.P.        | 221009 | 9998899559  | akansha@gmail.com      |
+| East            | Friend | Radhe     | Mohan    | Brahmasthan   | Chilkahar   | Assam       | 221546 | 9876543211  | abc@xyz.com            |
+| East            | Family | Shweta    | Gupta    | Bada Chowk    | Imphal      | Manipur     | 471546 | 8876543445  | abc@xyz.in             |
+| West            | Family | Piyush    | Agarawal | IIT Chauraha  | Gandhinagar | Gujarat     | 551546 | 9974125832  | xyz@yahoo.in           |
+| Center          | Friend | Mohit     | Dadhich  | Airoli        | Mumbai      | Maharashtra | 465545 | 9956256632  | mohan@yiitbhu.ac.in    |
++-----------------+--------+-----------+----------+---------------+-------------+-------------+--------+-------------+------------------------+
+11 rows in set (0.06 sec)
