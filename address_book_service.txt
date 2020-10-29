@@ -317,3 +317,211 @@ mysql> select * from address_book;
 | Center          | Friend | Mohit     | Dadhich  | Airoli        | Mumbai      | Maharashtra | 465545 | 9956256632  | mohan@yiitbhu.ac.in    |
 +-----------------+--------+-----------+----------+---------------+-------------+-------------+--------+-------------+------------------------+
 11 rows in set (0.06 sec)
+
+..........................................................................................
+ 
+// UC 12 - Implementing the ER Diagram into Address Book Service DB.
+
+// Creating address_book_name table
+mysql> create table address_book_name(
+    -> book_id int unsigned not null primary key,
+    -> book_name varchar(150) not null
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+// Describing the structure of address_book_name table
+mysql> desc address_book_name;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| book_id   | int unsigned | NO   | PRI | NULL    |       |
+| book_name | varchar(150) | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+// Creating address_book_type table
+mysql> create table address_book_type(
+    -> type_id int unsigned not null primary key,
+    -> type_name varchar(150) not null
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+// Describing the structure of address_book_type table
+mysql> desc address_book_type;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| type_id   | int unsigned | NO   | PRI | NULL    |       |
+| type_name | varchar(150) | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+// Creating address_details table
+mysql> create table address_details(
+    -> ad_id int unsigned not null primary key,
+    -> address varchar(100) not null,
+    -> city varchar(100) not null,
+    -> state varchar(100) not null,
+    -> zip varchar(6) not null
+    -> );
+Query OK, 0 rows affected (11.24 sec)
+
+// Describing the structure of address_details table
+mysql> desc address_details;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| ad_id     | int unsigned | NO   | PRI | NULL    |       |
+| address   | varchar(100) | NO   |     | NULL    |       |
+| city      | varchar(100) | NO   |     | NULL    |       |
+| state     | varchar(100) | NO   |     | NULL    |       |
+| zip       | varchar(6)   | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+6 rows in set (0.70 sec)
+
+// Creating contact_person_details table
+mysql> create table contact_person_details(
+    -> person_id int unsigned not null auto_increment primary key,
+    -> first_name varchar(100) not null,
+    -> last_name varchar(100) not null,
+    -> phone_no varchar(50) not null,
+    -> email varchar(100) not null,
+    -> ad_id int unsigned not null,
+    -> type_id int unsigned not null,
+    -> book_id int unsigned not null,
+    -> foreign key(ad_id) references address_details(ad_id),
+    -> foreign key(type_id) references address_book_type(type_id),
+    -> foreign key(book_id) references address_book_name(book_id)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+// Describing the structure of contact_person_details table
+mysql> desc contact_person_details;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| person_id  | int unsigned | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(100) | NO   |     | NULL    |                |
+| last_name  | varchar(100) | NO   |     | NULL    |                |
+| phone_no   | varchar(50)  | NO   |     | NULL    |                |
+| email      | varchar(100) | NO   |     | NULL    |                |
+| ad_id      | int unsigned | NO   | MUL | NULL    |                |
+| type_id    | int unsigned | NO   | MUL | NULL    |                |
+| book_id    | int unsigned | NO   | MUL | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+11 rows in set (0.07 sec)
+
+// Inserting data into the address_book_type table
+mysql> insert into address_book_type values
+    -> (1,'Family'),
+    -> (2,'Friend'),
+    -> (3,'Profession');
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+// Retrieving all the entries from the table
+mysql> select * from address_book_type;
++---------+------------+
+| type_id | type_name  |
++---------+------------+
+|       1 | Family     |
+|       2 | Friend     |
+|       3 | Profession |
++---------+------------+
+3 rows in set (0.06 sec)
+
+// Inserting data into the address_book_name table
+mysql> insert into address_book_name values
+    -> (101,'Book1'),
+    -> (102,'Book2'),
+    -> (103,'Book3'),
+    -> (104,'Book4'),
+    -> (105,'Book5');
+Query OK, 5 rows affected (0.10 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+// Retrieving all the entries from the table
+mysql> select * from address_book_name;
++---------+-----------+
+| book_id | book_name |
++---------+-----------+
+|     101 | Book1     |
+|     102 | Book2     |
+|     103 | Book3     |
+|     104 | Book4     |
+|     105 | Book5     |
++---------+-----------+
+5 rows in set (0.05 sec)
+
+mysql> insert into address_details values
+    -> (11,'Brahmasthan','Chilkahar','Assam','221546'),
+    -> (12,'Bada Chowk','Imphal','Manipur','471546'),
+    -> (13,'IIT Chauraha','Gandhinagar','Gujarat','551546')
+    -> (14,'Airoli','Mumbai','Maharashtra','465545'),
+    -> (15,'Gudari Bazar', 'Rasra', 'U.P.', '221712'),
+    -> (16,"City Mall", "Gwalior", "M.P.", "254658"),
+    -> (17,"Lanka", "Varanasi", "U.P.", "221005"),
+    -> (18,"Station Road", "Rasra", "U.P.", "221712"),
+    -> (19,"IIM Bangalore", "Bengaluru", "Karnataka", "798998"),
+    -> (20,"VIP Road", "Patna", "Bihar", "128598"),
+    -> (21,"Manduadih", "Varanasi", "U.P.", "221004"),
+    -> (22,"Chowk", "Varanasi", "U.P.", "221009");
+Query OK, 12 rows affected (0.12 sec)
+Records: 12  Duplicates: 0  Warnings: 0
+
+// Retrieving all the entries from the table
+mysql> select * from address_details;
++-------+---------------+-------------+-------------+--------+
+| ad_id | address       | city        | state       | zip    |
++-------+---------------+-------------+-------------+--------+
+|    11 | Brahmasthan   | Chilkahar   | Assam       | 221546 |
+|    12 | Bada Chowk    | Imphal      | Manipur     | 471546 |
+|    13 | IIT Chauraha  | Gandhinagar | Gujarat     | 551546 |
+|    14 | Airoli        | Mumbai      | Maharashtra | 465545 |
+|    15 | Gudari Bazar  | Rasra       | U.P.        | 221712 |
+|    16 | City Mall     | Gwalior     | M.P.        | 254658 |
+|    17 | Lanka         | Varanasi    | U.P.        | 221005 |
+|    18 | Station Road  | Rasra       | U.P.        | 221712 |
+|    19 | IIM Bangalore | Bengaluru   | Karnataka   | 798998 |
+|    20 | VIP Road      | Patna       | Bihar       | 128598 |
+|    21 | Manduadih     | Varanasi    | U.P.        | 221004 |
+|    22 | Chowk         | Varanasi    | U.P.        | 221009 |
++-------+---------------+-------------+-------------+--------+
+12 rows in set (0.00 sec)
+
+// Inserting data into the contact_person_details tablemysql> insert into contact_person_details
+mysql> insert into contact_person_details
+    -> ('Radhe','Mohan','9876543211','abc@xyz.com',11,1,102)
+    -> ('Shweta','Gupta','8876543445','abc@xyz.in',12,2,104),
+    -> ('Piyush','Agarawal','9974125832','xyz@yahoo.in',13,3,101),
+    -> ('Mohit','Dadhich','9956256632','mohit@yiitbhu.ac.in',14,3,105),
+    -> ('Akash', 'Gupta','9559473852', 'akash@gmail.com',15,2,102),
+    -> ("Kritee", "Sagar","9999999449", "kriteesagar@gmail.com",16,1,104),
+    -> ("Khusbu", "Kumari", "9999999999", "khusbu@gmail.com",17,1,101),
+    -> ("Abhishek", "Gupta", "9876543210', "abhishek@gmail.com", 18, 2, 103),
+    -> ("Diksha", "Gupta", "7894561230", "dikshagupta@iimb.ac.in", 19, 1, 101),
+    -> ("Roshan", "Singh", "9875681470", "roshan187@yahoo.com", 20, 2, 102),
+    -> ("Radhika", "Singh", "9998899999", "radhika@gmail.com", 21, 3, 101),
+    -> ("Akansha", "Singh", "9998899559", "akansha@gmail.com", 22, 3, 105);
+Query OK, 12 rows affected (0.20 sec)
+Records: 12  Duplicates: 0  Warnings: 0
+
+// Retrieving all the entries from the table
+mysql> select * from contact_person_details;
++-----------+------------+-----------+------------+------------------------+-------+---------+---------+
+| person_id | first_name | last_name | phone_no   | email                  | ad_id | type_id | book_id |
++-----------+------------+-----------+------------+------------------------+-------+---------+---------+
+|         1 | Radhe      | Mohan     | 9876543211 | abc@xyz.com            |    11 |       1 |     102 |
+|         2 | Shweta     | Gupta     | 8876543445 | abc@xyz.in             |    12 |       2 |     104 |
+|         3 | Piyush     | Agarawal  | 9974125832 | xyz@yahoo.in           |    13 |       3 |     101 |
+|         4 | Mohit      | Dadhich   | 9956256632 | mohit@yiitbhu.ac.in    |    14 |       3 |     105 |
+|         5 | Akash      | Gupta     | 9559473852 | akash@gmail.com        |    15 |       2 |     102 |
+|         6 | Kritee     | Sagar     | 9999999449 | kriteesagar@gmail.com  |    16 |       1 |     104 |
+|         7 | Khusbu     | Kumari    | 9999999999 | khusbu@gmail.com       |    17 |       1 |     101 |
+|         8 | Abhishek   | Gupta     | 9876543210 | abhishek@gmail.com     |    18 |       2 |     103 |
+|         9 | Diksha     | Gupta     | 7894561230 | dikshagupta@iimb.ac.in |    19 |       1 |     101 |
+|        10 | Roshan     | Singh     | 9875681470 | roshan187@yahoo.com    |    20 |       2 |     102 |
+|        11 | Radhika    | Singh     | 9998899999 | radhika@gmail.com      |    21 |       3 |     101 |
+|        12 | Akansha    | Singh     | 9998899559 | akansha@gmail.com      |    22 |       3 |     105 |
++-----------+------------+-----------+------------+------------------------+-------+---------+---------+
+12 rows in set (0.05 sec)
