@@ -525,3 +525,98 @@ mysql> select * from contact_person_details;
 |        12 | Akansha    | Singh     | 9998899559 | akansha@gmail.com      |    22 |       3 |     105 |
 +-----------+------------+-----------+------------+------------------------+-------+---------+---------+
 12 rows in set (0.05 sec)
+
+..........................................................................................
+ 
+// UC 13 - Ensuring all retrieve queries done especially in UC 6, UC 7, UC 8 and UC 10 are working with new table structure.
+
+// Retrieving Person belonging to a City or State from the Address Book
+mysql> select first_name, last_name, phone_no, email, city, state
+    -> from contact_person_details c,
+    -> (select ad_id, city, state from address_details where city = 'Varanasi' or state ='M.P.') d
+    -> where c.ad_id=d.ad_id;
++------------+-----------+------------+-----------------------+----------+-------+
+| first_name | last_name | phone_no   | email                 | city     | state |
++------------+-----------+------------+-----------------------+----------+-------+
+| Kritee     | Sagar     | 9999999449 | kriteesagar@gmail.com | Gwalior  | M.P.  |
+| Khusbu     | Kumari    | 9999999999 | khusbu@gmail.com      | Varanasi | U.P.  |
+| Radhika    | Singh     | 9998899999 | radhika@gmail.com     | Varanasi | U.P.  |
+| Akansha    | Singh     | 9998899559 | akansha@gmail.com     | Varanasi | U.P.  |
++------------+-----------+------------+-----------------------+----------+-------+
+4 rows in set (0.00 sec)
+
+// Finding the counts of Contacts of a particular City 
+mysql> select City,count(*) as 'Size of Address Book' from address_details
+    -> where ad_id in
+    -> (select ad_id from contact_person_details)
+    -> group by city;
++-------------+----------------------+
+| City        | Size of Address Book |
++-------------+----------------------+
+| Chilkahar   |                    1 |
+| Imphal      |                    1 |
+| Gandhinagar |                    1 |
+| Mumbai      |                    1 |
+| Rasra       |                    2 |
+| Gwalior     |                    1 |
+| Varanasi    |                    3 |
+| Bengaluru   |                    1 |
+| Patna       |                    1 |
++-------------+----------------------+
+9 rows in set (0.14 sec)
+
+// Finding the counts of Contacts of a particular State
+mysql> select State,count(*) as 'Size of Address Book' from address_details
+    -> where ad_id in
+    -> (select ad_id from contact_person_details)
+    -> group by state;
++-------------+----------------------+
+| State       | Size of Address Book |
++-------------+----------------------+
+| Assam       |                    1 |
+| Manipur     |                    1 |
+| Gujarat     |                    1 |
+| Maharashtra |                    1 |
+| U.P.        |                    5 |
+| M.P.        |                    1 |
+| Karnataka   |                    1 |
+| Bihar       |                    1 |
++-------------+----------------------+
+8 rows in set (0.00 sec)
+
+// Retrieving entries sorted alphabetically by Person’s name for a given city
+mysql> select first_name, last_name, address, city, state, zip, phone_no, email
+    -> from contact_person_details c, address_details a
+    -> where c.ad_id=a.ad_id
+    -> order by first_name, last_name;
++------------+-----------+---------------+-------------+-------------+--------+------------+------------------------+
+| first_name | last_name | address       | city        | state       | zip    | phone_no   | email                  |
++------------+-----------+---------------+-------------+-------------+--------+------------+------------------------+
+| Abhishek   | Gupta     | Station Road  | Rasra       | U.P.        | 221712 | 9876543210 | abhishek@gmail.com     |
+| Akansha    | Singh     | Chowk         | Varanasi    | U.P.        | 221009 | 9998899559 | akansha@gmail.com      |
+| Akash      | Gupta     | Gudari Bazar  | Rasra       | U.P.        | 221712 | 9559473852 | akash@gmail.com        |
+| Diksha     | Gupta     | IIM Bangalore | Bengaluru   | Karnataka   | 798998 | 7894561230 | dikshagupta@iimb.ac.in |
+| Khusbu     | Kumari    | Lanka         | Varanasi    | U.P.        | 221005 | 9999999999 | khusbu@gmail.com       |
+| Kritee     | Sagar     | City Mall     | Gwalior     | M.P.        | 254658 | 9999999449 | kriteesagar@gmail.com  |
+| Mohit      | Dadhich   | Airoli        | Mumbai      | Maharashtra | 465545 | 9956256632 | mohit@yiitbhu.ac.in    |
+| Piyush     | Agarawal  | IIT Chauraha  | Gandhinagar | Gujarat     | 551546 | 9974125832 | xyz@yahoo.in           |
+| Radhe      | Mohan     | Brahmasthan   | Chilkahar   | Assam       | 221546 | 9876543211 | abc@xyz.com            |
+| Radhika    | Singh     | Manduadih     | Varanasi    | U.P.        | 221004 | 9998899999 | radhika@gmail.com      |
+| Roshan     | Singh     | VIP Road      | Patna       | Bihar       | 128598 | 9875681470 | roshan187@yahoo.com    |
+| Shweta     | Gupta     | Bada Chowk    | Imphal      | Manipur     | 471546 | 8876543445 | abc@xyz.in             |
++------------+-----------+---------------+-------------+-------------+--------+------------+------------------------+
+12 rows in set (0.04 sec)
+
+// Getting the number of contact persons i.e. count by type
+mysql> select Type, total_count as 'Number of Contact Persons'
+    -> from address_book_type a,
+    -> (select Type_id, count(*) as 'total_count' from contact_person_details group by type_id) as b
+    -> where a.type_id=b.type_id;
++------------+---------------------------+
+| Type       | Number of Contact Persons |
++------------+---------------------------+
+| Family     |                         4 |
+| Friend     |                         4 |
+| Profession |                         4 |
++------------+---------------------------+
+3 rows in set (0.06 sec)
